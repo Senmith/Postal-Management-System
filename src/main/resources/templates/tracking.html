@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>Parcel Tracking - Postal Management System</title>
+  
+  <!-- Fonts and icons -->
+  <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Inter:300,400,500,600,700,900" />
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,0,0" rel="stylesheet" />
+  <script src="https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script>
+  
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  
+  <!-- Custom CSS -->
+  <style>
+    :root {
+      --primary-gradient: linear-gradient(195deg, #42424a 0%, #191919 100%);
+      --success-gradient: linear-gradient(195deg, #66BB6A 0%, #43A047 100%);
+      --info-gradient: linear-gradient(195deg, #26C6DA 0%, #00ACC1 100%);
+      --warning-gradient: linear-gradient(195deg, #FFA726 0%, #FB8C00 100%);
+      --danger-gradient: linear-gradient(195deg, #EF5350 0%, #E53935 100%);
+    }
+    
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: #f8f9fa;
+      margin: 0;
+    }
+    
+    .sidebar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 100vh;
+      width: 250px;
+      background: linear-gradient(195deg, #FFFFFF 0%, #FFFFFF 100%);
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.07);
+      z-index: 1000;
+      border-radius: 0 1rem 1rem 0;
+      margin: 0.5rem;
+      height: calc(100vh - 1rem);
+    }
+    
+    .sidebar-header {
+      padding: 1.5rem;
+      border-bottom: 1px solid #dee2e6;
+    }
+    
+    .sidebar-brand, .logo {
+      display: flex;
+      align-items: center;
+      text-decoration: none;
+      color: #344767;
+      font-weight: 600;
+      font-size: 1.2rem;
+    }
+    
+    .sidebar-nav {
+      padding: 1rem 0;
+    }
+    
+    .nav-link-custom {
+      display: flex;
+      align-items: center;
+      padding: 0.75rem 1.5rem;
+      color: #67748e;
+      text-decoration: none;
+      transition: all 0.15s ease;
+      border-radius: 0.375rem;
+      margin: 0.125rem 1rem;
+    }
+    
+    .nav-link-custom:hover, .nav-link-custom.active {
+      background: var(--primary-gradient);
+      color: white;
+      transform: translateY(-1px);
+      box-shadow: 0 3px 5px rgba(0, 0, 0, 0.1);
+    }
+    
+    .nav-link-custom i {
+      margin-right: 0.75rem;
+      font-size: 1rem;
+    }
+    
+    .main-content {
+      margin-left: 270px;
+      padding: 2rem;
+      min-height: 100vh;
+    }
+    
+    .dashboard-card {
+      background: white;
+      border-radius: 1rem;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.07);
+      margin-bottom: 1.5rem;
+      overflow: hidden;
+    }
+    
+    .dashboard-card-header {
+      padding: 1.5rem 1.5rem 0 1.5rem;
+      border-bottom: 1px solid #f1f3f4;
+    }
+    
+    .dashboard-card-body {
+      padding: 1.5rem;
+    }
+    
+    .btn-primary {
+      background: var(--primary-gradient);
+      border: none;
+      border-radius: 0.375rem;
+      font-weight: 600;
+      padding: 0.75rem 1.5rem;
+    }
+    
+    .btn-primary:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 3px 5px rgba(0, 0, 0, 0.1);
+    }
+    
+    .form-control {
+      border-radius: 0.375rem;
+      border: 1px solid #dee2e6;
+      padding: 0.75rem 1rem;
+    }
+    
+    .form-control:focus {
+      border-color: #42424a;
+      box-shadow: 0 0 0 0.2rem rgba(66, 66, 74, 0.25);
+    }
+    
+    .page-title {
+      color: #344767;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+      font-size: 2rem;
+    }
+    
+    .page-subtitle {
+      color: #67748e;
+      margin-bottom: 0;
+      font-size: 1.1rem;
+    }
+    
+    .card-custom {
+      background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+      border-radius: 1.5rem;
+    .status-badge {
+      padding: 0.5rem 1rem;
+      border-radius: 0.375rem;
+      font-weight: 600;
+      font-size: 0.75rem;
+      text-transform: uppercase;
+    }
+    
+    .status-REGISTERED { 
+      background-color: #e3f2fd; 
+      color: #1976d2; 
+    }
+    .status-AT_ORIGIN_POST_OFFICE { 
+      background-color: #f3e5f5; 
+      color: #7b1fa2; 
+    }
+    .status-IN_TRANSIT { 
+      background-color: #fff3e0; 
+      color: #f57c00; 
+    }
+    .status-AT_DESTINATION_POST_OFFICE { 
+      background-color: #e8f5e8; 
+      color: #388e3c; 
+    }
+    .status-OUT_FOR_DELIVERY { 
+      background-color: #fff8e1; 
+      color: #f57f17; 
+    }
+    .status-DELIVERED { 
+      background-color: #e8f5e8; 
+      color: #2e7d32; 
+    }
+    .status-DELIVERY_ATTEMPT_FAILED { 
+      background-color: #ffebee; 
+      color: #d32f2f; 
+    }
+    .status-RETURNED_TO_ORIGIN { 
+      background-color: #fafafa; 
+      color: #424242; 
+    
+    .timeline {
+      position: relative;
+      padding-left: 2rem;
+    }
+    
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 1rem;
+      top: 0;
+      bottom: 0;
+      width: 2px;
+      background-color: #dee2e6;
+    }
+    
+    .timeline-item {
+      position: relative;
+      margin-bottom: 1.5rem;
+    }
+    
+    .timeline-item::before {
+      content: '';
+      position: absolute;
+      left: -1.5rem;
+      top: 0.5rem;
+      width: 1rem;
+      height: 1rem;
+      border-radius: 50%;
+      background-color: #26C6DA;
+      border: 2px solid white;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+    
+    .timeline-content {
+      background: white;
+      padding: 1.5rem;
+      border-radius: 0.5rem;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.07);
+      border: 1px solid #dee2e6;
+    }
+    
+    .alert {
+      border-radius: 0.375rem;
+      padding: 1rem;
+      margin-bottom: 1.5rem;
+    }
+    
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      .main-content {
+        margin-left: 0;
+        padding: 1rem;
+      }
+      
+      .sidebar {
+        transform: translateX(-100%);
+      }
+    }
+    }
+    
+    @keyframes slideInLeft {
+      0% { opacity: 0; transform: translateX(-50px); }
+      100% { opacity: 1; transform: translateX(0); }
+    }
+    
+    @keyframes slideInRight {
+      0% { opacity: 0; transform: translateX(50px); }
+      100% { opacity: 1; transform: translateX(0); }
+    }
+    
+    @keyframes fadeInUp {
+      0% { opacity: 0; transform: translateY(30px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+    
+    /* Enhanced Button Styles */
+    .btn-outline-secondary {
+      border: 2px solid #6c757d;
+      border-radius: 1rem;
+      padding: 0.8rem 2rem;
+      font-weight: 600;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      background: transparent;
+    }
+    
+    .btn-outline-secondary:hover {
+      background: linear-gradient(135deg, #6c757d 0%, #495057 100%);
+      color: white;
+      transform: translateY(-2px);
+      box-shadow: var(--card-shadow);
+    }
+    
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      .main-content {
+        margin-left: 0;
+        padding: 1rem;
+      }
+      
+      .sidebar {
+        transform: translateX(-100%);
+      }
+      
+      .tracking-search {
+        padding: 1.5rem;
+      }
+      
+      .page-header {
+        padding: 1.5rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <div class="sidebar-header">
+      <a href="/dashboard" class="logo">
+        <i class="material-symbols-rounded me-2">local_post_office</i>
+        Postal System
+      </a>
+    </div>
+    <nav class="sidebar-nav">
+      <a href="/dashboard" class="nav-link-custom">
+        <i class="material-symbols-rounded">dashboard</i>
+        <span>Dashboard</span>
+      </a>
+      <a href="/postOffice/view" class="nav-link-custom">
+        <i class="material-symbols-rounded">business</i>
+        <span>Post Offices</span>
+      </a>
+      <a href="/parcel/view" class="nav-link-custom">
+        <i class="material-symbols-rounded">inventory_2</i>
+        <span>Parcel Management</span>
+      </a>
+      <a href="/parcel/tracking" class="nav-link-custom active">
+        <i class="material-symbols-rounded">track_changes</i>
+        <span>Tracking</span>
+      </a>
+    </nav>
+  </aside>
+
+  <!-- Main Content -->
+  <main class="main-content">
+    <!-- Page Header -->
+    <div class="dashboard-card">
+      <div class="dashboard-card-header">
+        <h3 class="page-title">Parcel Tracking</h3>
+        <p class="page-subtitle">Track your parcels in real-time and view their complete journey history.</p>
+      </div>
+    </div>
+
+    <!-- Tracking Search Form -->
+    <div class="dashboard-card">
+      <div class="dashboard-card-body">
+        <h5 class="mb-3">Enter Tracking ID</h5>
+        <form th:action="@{/parcel/tracking}" method="post" class="d-flex gap-3">
+          <div class="flex-grow-1">
+            <input 
+              type="text" 
+              name="parcelId" 
+              class="form-control" 
+              placeholder="Enter Parcel ID (e.g., PCL12345)"
+              th:value="${searchedParcelId}"
+              required
+            />
+          </div>
+          <button type="submit" class="btn btn-primary">
+            <i class="material-symbols-rounded me-2">search</i>
+            Track Parcel
+          </button>
+        </form>
+      </div>
+    </div>
+
+    <!-- Tracking Results -->
+    <div th:if="${parcel}" class="row">
+      <!-- Parcel Information Card -->
+      <div class="col-md-6 mb-4">
+        <div class="dashboard-card h-100">
+          <div class="dashboard-card-header">
+            <h5 class="mb-0">
+              <i class="material-symbols-rounded me-2">inventory_2</i>
+              Parcel Information
+            </h5>
+          </div>
+          <div class="dashboard-card-body">
+            <div class="row mb-3">
+              <div class="col-sm-4"><strong>Parcel ID:</strong></div>
+              <div class="col-sm-8" th:text="${parcel.parcelId}">PCL12345</div>
+            </div>
+            <div class="row mb-3">
+              <div class="col-sm-4"><strong>Status:</strong></div>
+              <div class="col-sm-8">
+                <span class="status-badge" th:classappend="'status-' + ${parcel.current_status}" th:text="${#strings.replace(parcel.current_status, '_', ' ')}">
+                  IN TRANSIT
+                </span>
+              </div>
+            </div>
+            <div class="row mb-3">
+              <div class="col-sm-4"><strong>Sender:</strong></div>
+              <div class="col-sm-8" th:text="${parcel.senderName}">John Doe</div>
+            </div>
+            <div class="row mb-3">
+              <div class="col-sm-4"><strong>Receiver:</strong></div>
+              <div class="col-sm-8" th:text="${parcel.receiverName}">Jane Smith</div>
+            </div>
+            <div class="row mb-3">
+              <div class="col-sm-4"><strong>From:</strong></div>
+              <div class="col-sm-8" th:text="${parcel.senderAddress}">123 Main St, City</div>
+            </div>
+            <div class="row mb-3">
+              <div class="col-sm-4"><strong>To:</strong></div>
+              <div class="col-sm-8" th:text="${parcel.receiverAddress}">456 Oak Ave, Town</div>
+            </div>
+            <div class="row mb-3">
+              <div class="col-sm-4"><strong>Weight:</strong></div>
+              <div class="col-sm-8" th:text="${parcel.weight} + ' kg'">2.5 kg</div>
+            </div>
+            <div class="row mb-3">
+              <div class="col-sm-4"><strong>Category:</strong></div>
+              <div class="col-sm-8" th:text="${#strings.replace(parcel.category, '_', ' ')}">PACKAGE</div>
+            </div>
+            <div class="row mb-3">
+              <div class="col-sm-4"><strong>Current Location:</strong></div>
+              <div class="col-sm-8" th:text="${parcel.assignedOffice != null ? parcel.assignedOffice.officeName : 'Not assigned'}">Kurunegala Office</div>
+            </div>
+            <div class="row">
+              <div class="col-sm-4"><strong>Registered Date:</strong></div>
+              <div class="col-sm-8" th:text="${#temporals.format(parcel.createdDate, 'dd/MM/yyyy HH:mm')}">01/01/2024 10:30</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Journey History Card -->
+      <div class="col-md-6 mb-4">
+        <div class="dashboard-card h-100">
+          <div class="dashboard-card-header">
+            <h5 class="mb-0">
+              <i class="material-symbols-rounded me-2">history</i>
+              Journey History
+            </h5>
+          </div>
+          <div class="dashboard-card-body">
+            <div th:if="${parcelHistory != null and not #lists.isEmpty(parcelHistory)}" class="timeline">
+              <div th:each="history : ${parcelHistory}" class="timeline-item">
+                <div class="timeline-content">
+                  <div class="d-flex justify-content-between align-items-start mb-2">
+                    <span class="status-badge" th:classappend="'status-' + ${history.status}" th:text="${#strings.replace(history.status, '_', ' ')}">
+                      IN TRANSIT
+                    </span>
+                    <small class="text-muted" th:text="${#temporals.format(history.updateTime, 'dd/MM/yyyy HH:mm')}">
+                      01/01/2024 10:30
+                    </small>
+                  </div>
+                  <div class="mb-1">
+                    <strong>Location: </strong>
+                    <span th:text="${history.location}">Kurunegala Office</span>
+                  </div>
+                  <div th:if="${history.remarks != null and not #strings.isEmpty(history.remarks)}">
+                    <strong>Remarks: </strong>
+                    <span th:text="${history.remarks}">Package processed successfully</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div th:if="${parcelHistory == null or #lists.isEmpty(parcelHistory)}" class="text-center py-4">
+              <i class="material-symbols-rounded text-muted" style="font-size: 3rem;">history</i>
+              <p class="text-muted mt-2">No history available for this parcel.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Search Again Section -->
+    <div th:if="${parcel}" class="text-center mt-4">
+      <a href="/parcel/tracking" class="btn btn-outline-secondary">
+        <i class="material-symbols-rounded me-2">search</i>
+        Track Another Parcel
+      </a>
+    </div>
+
+    <!-- Empty State for Initial Load -->
+    <div th:if="${parcel == null}" class="text-center mt-5">
+      <div class="empty-state-container">
+        <div class="tracking-icon-animation">
+          <i class="material-symbols-rounded">track_changes</i>
+        </div>
+        <h4 class="mt-4 mb-3">Track Your Parcel</h4>
+        <p class="text-muted mb-0">Enter your parcel ID above to get real-time tracking information</p>
+      </div>
+    </div>
+  </main>
+
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
