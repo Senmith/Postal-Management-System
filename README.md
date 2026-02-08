@@ -1,8 +1,8 @@
-# 📦 Post Office Management System
+# Post Office Management System
 
 A comprehensive web-based postal management system built with Spring Boot that streamlines parcel tracking, post office management, and logistics operations. The system features QR code generation for parcels, real-time tracking, and a modern, user-friendly dashboard.
 
-## ✨ Features
+## Features
 
 ### Parcel Management
 - **Create and Register Parcels** - Add new parcels with sender and receiver details
@@ -33,7 +33,7 @@ A comprehensive web-based postal management system built with Spring Boot that s
 - **Search Functionality** - Quick parcel lookup and filtering
 - **Responsive Design** - Works seamlessly on desktop and mobile devices
 
-## 🛠️ Technology Stack
+## Technology Stack
 
 ### Backend
 - **Spring Boot 3.5.6** - Core framework
@@ -52,7 +52,7 @@ A comprehensive web-based postal management system built with Spring Boot that s
 - **Maven** - Dependency management
 - **Java 17** - Programming language
 
-## 📋 Prerequisites
+## Prerequisites
 
 Before running this application, make sure you have the following installed:
 
@@ -61,7 +61,7 @@ Before running this application, make sure you have the following installed:
 - **MySQL 8.0+** (or XAMPP with MySQL)
 - **Your favorite IDE** (IntelliJ IDEA, Eclipse, or VS Code)
 
-## 🚀 Getting Started
+## Getting Started
 
 ### 1. Clone the Repository
 
@@ -116,7 +116,7 @@ Open your browser and navigate to:
 http://localhost:8080
 ```
 
-## 📖 Usage Guide
+## Usage Guide
 
 ### Managing Parcels
 
@@ -155,7 +155,7 @@ http://localhost:8080
 3. Select the new status and location
 4. The system automatically updates the parcel history
 
-## 📁 Project Structure
+## Project Structure
 
 ```
 postalapp/
@@ -190,7 +190,7 @@ postalapp/
 └── README.md                                # This file
 ```
 
-## 🔧 Configuration
+## Configuration
 
 ### Application Properties
 
@@ -218,7 +218,7 @@ The application automatically creates the following tables:
 - `parcel_history` - Tracks status changes
 - `post_office` - Stores post office details
 
-## 🤝 Contributing
+## Contributing
 
 Contributions are welcome! Please feel free to submit a Pull Request. For major changes, please open an issue first to discuss what you would like to change.
 
@@ -228,11 +228,11 @@ Contributions are welcome! Please feel free to submit a Pull Request. For major 
 4. Push to the branch (`git push origin feature/AmazingFeature`)
 5. Open a Pull Request
 
-## 📝 License
+## License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-## 🐛 Known Issues & Future Enhancements
+## Known Issues & Future Enhancements
 
 ### Known Issues
 - QR code scanner requires camera permissions
@@ -248,7 +248,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 - [ ] User authentication and roles
 - [ ] Export data to CSV/Excel
 
-## 📞 Support
+## Support
 
 If you encounter any issues or have questions:
 
@@ -256,18 +256,17 @@ If you encounter any issues or have questions:
 2. Create a new issue with detailed information
 3. Contact the maintainer
 
-## 👨‍💻 Author
+## Author
 
 **Senmith**
 - GitHub: [@Senmith](https://github.com/Senmith)
 
-## 🙏 Acknowledgments
+## Acknowledgments
 
+- IIT Java PD Instructors for useful feedback
 - Spring Boot community for excellent documentation
-- Bootstrap team for the responsive framework
 - ZXing library for QR code functionality
 - All contributors who help improve this project
 
 ---
 
-Made with ❤️ for efficient postal management
